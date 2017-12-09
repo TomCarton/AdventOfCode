@@ -7,8 +7,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#define PART 2
+
 char *buffer;
-unsigned int fsize;
+unsigned int fsize; 
 int *maze;
 int lcount = 1;
 
@@ -35,8 +37,6 @@ void setMaze() {
 		}
 	} while (s - buffer < fsize);
 
-	printf("%d line%s\n", lcount, lcount > 1 ? "s" : "");
-
 	maze = malloc(lcount * sizeof(int));
 
 	int p = 0;
@@ -48,7 +48,6 @@ void setMaze() {
 		sscanf(s, "%d\n", &v);
 
 		maze[p++] = v;
-		printf("found %d\n", v);
 
 		while ((c = *s++) && c != '\n');
 	} while (c);
@@ -59,16 +58,23 @@ int main() {
 	readFile();
 	setMaze();
 
-	int steps = 0;
+	int step = 0;
 
 	int curs = 0;
 	do {
-		++steps;
-		printf("step %6d: %04d %d\n", steps, curs, maze[curs]);
+		++step;
+		// printf("step %6d: %04d %d\n", step, curs, maze[curs]);
 		int ex = curs;
 		curs += maze[curs];
-		++maze[ex];
-	} while (curs > 0 && curs = lcount);
+
+#		if PART == 1
+			++maze[ex];
+#		elif PART == 2
+			maze[ex] += maze[ex] < 3 ? 1 : -1;
+#		endif
+	} while (curs >= 0 && curs < lcount);
+
+	printf("%d step%s\n", step, step > 1 ? "s" : "");
 
 	return 0;
 }
