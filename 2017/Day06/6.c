@@ -36,6 +36,7 @@ bool isHistory(int *bank) {
     for (unsigned int i = 0; i < historyCount; ++i) {
         int *savedBank = &history[i * bankCount];
         if (memcmp(bank, savedBank, sizeof(int) * bankCount) == 0) {
+        	printf("loop count = %d\n", historyCount - i);
             return true;
         }
     }
