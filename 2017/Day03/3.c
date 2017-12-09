@@ -8,92 +8,117 @@
 #include <string.h>
 #include <math.h>
 
-#define VERSION 2
+#define PART 2
+#define DISPLAY 0
 
 //   1  
 // 2   0
 //   3
 
-void coords(int value) {
-	int dir = 0;
-	int x = 0, y = 0;
+unsigned int *Map;
+unsigned int MSide;
+unsigned int MhSide;
 
-	int v = 0;
-	int dist, step = 1;
+void printMap() {
+    for (unsigned int k = 0; k < 7 * MSide; ++k) printf("-"); printf("\n");
 
-#	if VERSION == 2
-		unsigned int side = (int)ceil(sqrt(value)) | 1;
-		unsigned int hside = side >> 1;
-		printf("> %d, side = %d (%d)\n", value, side, hside);
+    for (unsigned int v = 0; v < MSide; ++v) {
+        for (unsigned int u = 0; u < MSide; ++u) {
+            unsigned int pos = (v * MSide) + u;
+            printf("%5d ", Map[pos]);
+        }
+        printf("\n");
+    }
+}
 
-		unsigned int size = (side + 2) * (side + 2) * sizeof(unsigned int);
-		unsigned int *map = malloc(size);
-		memset(map, 0, size);
-		map[hside * side + hside] = 1;
-		int M = 0;
-#	endif
+void spiral(int value) {
+    int dir = 0;
+    int x = 0, y = 0;
 
-	while (++v < value) {
-		switch (dir) {
-			case 0:
-				dist = abs(++x);
-				break;
-			case 1:
-				dist = abs(--y);
-				break;
-			case 2:
-				dist = abs(--x);
-				break;
-			case 3:
-				dist = abs(++y);
-				break;
-		}
-		if (dist >= step) {
-			dir = (dir + 1) % 4;
-			if (dir == 0) {
-				++step;
-			}
-		}
+    int v = 1;
+    int dist = 0, step = 1;
 
-#		if VERSION == 2
-			unsigned int pos = ((hside + y + 1) * side) + (hside + x + 1);
+    MSide = (int)ceil(sqrt(value)) | 1;
+    MSide += 2;
+    MhSide = MSide >> 1;
+    printf("> %d, side = %d (%d)\n", value, MSide, MhSide);
 
-			printf("-- (%d,%d) -- pos = %d\n", x, y, pos);
+    unsigned int size = (MSide + 2) * (MSide + 2) * sizeof(unsigned int);
+    Map = malloc(size);
+    memset(Map, 0, size);
 
-			if (map[pos] == 0) {
-				unsigned int v = map[pos - 1 - side];
-				v += map[pos - side];
-				v += map[pos + 1 - side];
-				v += map[pos - 1];
-				v += map[pos + 1];
-				v += map[pos - 1 + side];
-				v += map[pos + side];
-				v += map[pos + 1 + side];
+    unsigned int pos = (MhSide * MSide) + MhSide;
+    Map[pos] = 1;
 
-				map[pos] = v;
-				// printf("... %d\n", v);
+    while (++v <= value) {
+#   	if DISPLAY == -1
+	        printMap();
+#	   endif
+        
+        switch (dir) {
+            case 0:
+                dist = abs(++x);
+                break;
+            case 1:
+                dist = abs(--y);
+                break;
+            case 2:
+                dist = abs(--x);
+                break;
+            case 3:
+                dist = abs(++y);
+                break;
+        }
+        if (dist >= step) {
+            dir = (dir + 1) % 4;
+            if (dir == 0) {
+                ++step;
+            }
+        }
 
-				if (v > value) {
-					M = v;
-				}
-			}
-#		endif
-	}
+        unsigned int pos = ((MhSide + y) * MSide) + MhSide + x;
+        
+#       if PART == 1
+            Map[pos] = v;
+#       elif PART == 2
+            int sum = 0;
+            sum += Map[((MhSide + y - 1) * MSide) + MhSide + x - 1];
+            sum += Map[((MhSide + y - 1) * MSide) + MhSide + x];
+            sum += Map[((MhSide + y - 1) * MSide) + MhSide + x + 1];
 
-#	if VERSION == 1
-		printf("> coord: (%d, %d) = %d\n", x, y, abs(x) + abs(y));
-#	elif VERSION == 2
-		printf("> value: %d\n", M);
-		free(map);
-#	endif
+            sum += Map[((MhSide + y) * MSide) + MhSide + x - 1];
+            sum += Map[((MhSide + y) * MSide) + MhSide + x + 1];
+
+            sum += Map[((MhSide + y + 1) * MSide) + MhSide + x - 1];
+            sum += Map[((MhSide + y + 1) * MSide) + MhSide + x];
+            sum += Map[((MhSide + y + 1) * MSide) + MhSide + x + 1];
+
+            Map[pos] = sum;
+        
+            if (sum > value) {
+                printf("%d is larger than %d\n", sum, value);
+                break;
+            }
+#       endif
+    }
+
+#   if DISPLAY == 1
+        printMap();
+#   endif
+
+    printf("> coord: (%d, %d) = %d\n", x, y, abs(x) + abs(y));
+
+    printf("\n\n");
+
+    free(Map);
 }
 
 int main() {
-	coords(1);
-	coords(12);
-	coords(23);
-	// coords(1024);
-	// coords(312051);
+//    spiral(1);
+//    spiral(12);
+//    spiral(23);
+//    spiral(1024);
+    spiral(312051);
 
-	return 0;
+    return 0;
 }
