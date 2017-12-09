@@ -6,8 +6,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "instructions.h"
+#include "variables.h"
 
 static unsigned int kMaxTokens = 8;
 
@@ -21,19 +23,40 @@ int main() {
 		printf("line: '%s'\n", line);
 
 		char *token[kMaxTokens];
-		for (unsigned int i = 0; i < kMaxTokens; ++i) {
-			token[i] = NULL;
+		getTokens(line , token, kMaxTokens);
+
+		bool result = true;
+		if (strcmp(token[3], "if") == 0) {
+			VAR *tVariable = getVariable(token[4]);
+			int tValue = 0;
+			sscanf(token[6], "%d", &tValue);
+
+			if (strcmp(token[5], "<") == 0) {
+				result = tVariable->value < tValue;
+			} else if (strcmp(token[5], "<=") == 0) {
+				result = tVariable->value <= tValue;
+			} else if (strcmp(token[5], ">") == 0) {
+				result = tVariable->value > tValue;
+			} else if (strcmp(token[5], ">=") == 0) {
+				result = tVariable->value >= tValue;
+			}
 		}
 
-		int t = getTokens(line , token, kMaxTokens);
-		printf(" token %d\n", t);
+		VAR *var = getVariable(token[0]);
 
-		for (unsigned int i = 0; i < t; ++i) {
-			printf("token %d = '%s'\n", i, token[i]);
+		if (result) {
+			int dValue = 0;
+			sscanf(token[2], "%d", &dValue);
+
+			if (strcmp(token[1], "inc")) {
+				var->value += dValue;
+			} else if (strcmp(token[1], "dec")) {
+				var->value -= dValue;
+			}
 		}
-
-		printf("\n");
 	}
+
+	dumpVariables();
 
 	return 0;
 }
