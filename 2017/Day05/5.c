@@ -9,9 +9,9 @@
 
 #define PART 2
 
-char *buffer;
+char *buffer = NULL;
 unsigned int fsize; 
-int *maze;
+int *maze = NULL;
 int lcount = 1;
 
 void readFile() {
@@ -56,7 +56,9 @@ void setMaze() {
 int main() {
 
 	readFile();
+
 	setMaze();
+	free(buffer);
 
 	int step = 0;
 
@@ -75,6 +77,8 @@ int main() {
 	} while (curs >= 0 && curs < lcount);
 
 	printf("%d step%s\n", step, step > 1 ? "s" : "");
+
+	free(maze);
 
 	return 0;
 }
