@@ -5,9 +5,14 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <string.h>
 
+#include "variables.h"
+
 #include "instructions.h"
+
+static unsigned int kMaxTokens = 8;
 
 
 char *readInstructionsFile(const char *filename) {
@@ -75,4 +80,48 @@ int getTokens(char *line, char **token, int maxTokens) {
 	}
 
 	return t + 1;
+}
+
+int runLine(char *line) {
+	char *token[kMaxTokens];
+	getTokens(line , token, kMaxTokens);
+
+	bool result = true;
+	if (strcmp(token[3], "if") == 0) {
+		VAR *tVariable = getVariable(token[4]);
+		int tValue = 0;
+		sscanf(token[6], "%d", &tValue);
+
+		if (strcmp(token[5], "<") == 0) {
+			result = tVariable->value < tValue;
+		} else if (strcmp(token[5], "<=") == 0) {
+			result = tVariable->value <= tValue;
+		} else if (strcmp(token[5], ">") == 0) {
+			result = tVariable->value > tValue;
+		} else if (strcmp(token[5], ">=") == 0) {
+			result = tVariable->value >= tValue;
+		} else if (strcmp(token[5], "==") == 0) {
+			result = tVariable->value == tValue;
+		} else if (strcmp(token[5], "!=") == 0) {
+			result = tVariable->value != tValue;
+		}
+	}
+
+	VAR *var = getVariable(token[0]);
+	int value = var->value;
+
+	if (result) {
+		int dValue = 0;
+		sscanf(token[2], "%d", &dValue);
+
+		if (strcmp(token[1], "inc") == 0) {
+			value += dValue;
+		} else if (strcmp(token[1], "dec") == 0) {
+			value -= dValue;
+		}
+	}
+
+	var->value = value;
+
+	return value;
 }
