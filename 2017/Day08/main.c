@@ -48,9 +48,9 @@ int main() {
 			int dValue = 0;
 			sscanf(token[2], "%d", &dValue);
 
-			if (strcmp(token[1], "inc")) {
+			if (strcmp(token[1], "inc") == 0) {
 				var->value += dValue;
-			} else if (strcmp(token[1], "dec")) {
+			} else if (strcmp(token[1], "dec") == 0) {
 				var->value -= dValue;
 			}
 		}
