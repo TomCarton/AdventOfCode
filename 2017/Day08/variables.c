@@ -54,9 +54,16 @@ void dumpVariable(const VAR *var)
 
 void dumpVariables(void)
 {
+	int max = 0;
 	printf("\n------------------------\n");
 	for (unsigned int i = 0; i < VariableCount; ++i) {
 		printf("%2d: '%s' = %d\n", i, Variable[i].label, Variable[i].value);
+
+		if (Variable[i].value > max) {
+			max = Variable[i].value;
+		}
 	}
+	printf("------------------------\n");
+	printf("Max value = %d\n", max);
 	printf("------------------------\n\n");
 }
