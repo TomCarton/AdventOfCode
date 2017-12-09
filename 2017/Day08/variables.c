@@ -52,7 +52,7 @@ void dumpVariable(const VAR *var)
 	printf(" '%s' = %d\n", var->label, var->value);
 }
 
-void dumpVariables()
+void dumpVariables(void)
 {
 	printf("\n------------------------\n");
 	for (unsigned int i = 0; i < VariableCount; ++i) {

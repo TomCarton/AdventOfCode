@@ -12,4 +12,4 @@ VAR *addVariable(const char *label);
 VAR *getVariable(const char *label);
 
 void dumpVariable(const VAR *var);
-void dumpVariables();
+void dumpVariables(void);
