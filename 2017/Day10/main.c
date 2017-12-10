@@ -6,11 +6,11 @@
 
 #include <stdio.h>
 
-#define kNodeCount 5
+#define kNodeCount 256
 
 unsigned int Node[kNodeCount];
-unsigned int Length[] = { 3, 4, 1, 5, };
-// 94,84,0,79,2,27,81,1,123,93,218,23,103,255,254,243
+
+unsigned int Length[] = { 94, 84, 0, 79, 2, 27, 81, 1, 123, 93, 218, 23, 103, 255, 254, 243, };
 unsigned int LengthCount = sizeof(Length) / sizeof(Length[0]);
 
 unsigned int Curs;
