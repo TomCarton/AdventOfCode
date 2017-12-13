@@ -163,6 +163,8 @@ bool runPacket(unsigned int delay, unsigned int picosecond, bool display) {
 }
 
 int main() {
+    // 1: 1876
+    // 2: 3964778
 
 	char *data = NULL;
 	unsigned int read = readInput("input.txt", &data);
@@ -173,11 +175,10 @@ int main() {
 
 	free(data);
 
-	unsigned int d = 0; {
-	// for (unsigned int d = 0; d < 100; ++d) {
+	for (unsigned int d = 0; d < 5000000; ++d) {
 		if (runPacket(d, 6, true) == false) {
 			printf("should delay %d picosecond%s...\n", d, d > 1 ? "s" : "");
-			// break;
+			break;
 		}
 	}
 
