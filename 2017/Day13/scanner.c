@@ -55,7 +55,19 @@ unsigned int parse(const char *buffer, unsigned int size, LAYER *layer) {
 }
 
 unsigned int scannerPosition(unsigned int index, unsigned int range) {
-	unsigned int pos = index % range;
+	unsigned int pos;
+
+#	if 0
+		// modulo
+		pos = index % range;
+#	else
+		// back and forth
+		--range;
+		pos = index % (range << 1);
+		if (pos > range) {
+			pos = range - (pos - range);
+		}
+#	endif
 
 	return pos;
 }
@@ -104,6 +116,7 @@ void dumpLayers(unsigned int depth) {
 }
 
 int main() {
+
 	char *data = NULL;
 	unsigned int read = readInput("input.txt", &data);
 
@@ -114,6 +127,7 @@ int main() {
 
 	free(data);
 
+	unsigned int severity = 0;
 	for (unsigned int k = 0; k < MaxDepth + 1; ++k) {
 		printf("Picosecond %d:\n", k);
 		bool caught = false;
@@ -124,16 +138,13 @@ int main() {
 			if (Packet != Layer[i].depth) continue;
 
 			if (scannerPosition(Scanner, Layer[i].range) == 0) {
-				caught = true;
+				printf("### Caught! severity += %d * %d\n", Layer[i].depth, Layer[i].range);
+				severity += Layer[i].depth * Layer[i].range;
 			}
 		}
 
 		++Scanner;
 		dumpLayers(8);
-
-		if (caught) {
-			printf("### Caught\n");
-		}
 
 		++Packet;
 
@@ -141,6 +152,8 @@ int main() {
 	}
 
 	free(Layer);
+
+	printf("### Severity = %d\n", severity);
 
 	return 0;
 }
