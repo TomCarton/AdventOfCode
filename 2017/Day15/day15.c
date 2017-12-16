@@ -13,8 +13,6 @@ unsigned long step(unsigned long value, unsigned long factor) {
 	return (value * factor) % 2147483647;
 }
 
-static const unsigned long kTotal = 5000000; // 40000000;
-
 unsigned int iterate(unsigned int steps, bool mode) {
 	unsigned int count = 0;
 
