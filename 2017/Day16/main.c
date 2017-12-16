@@ -89,15 +89,6 @@ void dance(char *dancer, const char *steps, unsigned int size, bool stats) {
 	}
 }
 
-void move(char *dancer, const char *plan) {
-	char temp[kDancerCount];
-	strcpy(temp, dancer);
-
-	for (unsigned int i = 0; i < kDancerCount; ++i) {
-		dancer[i] = temp[plan[i] - 'a'];
-	}
-}
-
 void prepare(char *dancers) {
 	for (unsigned int i = 0; i < kDancerCount; ++i) {
 		dancers[i] = 'a' + i;
@@ -110,21 +101,25 @@ int main() {
 	char *steps = NULL;
 	unsigned int size = readInput("input.txt", &steps);
 
-
-	// dance plan
-	char plan[kDancerCount + 1];
-	prepare(plan);
-	dance(plan, steps, size, true);
-
-	printf("\ndance plan: '%s'\n", plan);
-
-	// get period
-	unsigned int period = 42;
-
-	// perform dance
 	char dancer[kDancerCount + 1];
 	prepare(dancer);
 
+	// initial
+	char initial[kDancerCount + 1];
+	prepare(initial);
+
+	// get period
+	unsigned int period = 0;
+	for (period = 1; period < kDanceCount; ++period) {
+		dance(dancer, steps, size, false);
+
+		if (strcmp(dancer, initial) == 0) {
+			break;
+		}
+	}
+	printf("period = %d\n", period);
+
+	// perform dance
 	unsigned int remain = kDanceCount % period;
 
 	for (unsigned int j = 0; j < remain; ++j) {
