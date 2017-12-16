@@ -5,7 +5,7 @@ TARGET := day16
 C_FILES := $(wildcard *.c) $(wildcard ../common/*.c)
 
 CC=clang
-CC_FLAGS=-Wall -O3
+CC_FLAGS=-Wall -Werror -O3 -g
 
 all: $(C_FILES)
 	$(CC) $(CC_FLAGS) $^ -o $(TARGET)
