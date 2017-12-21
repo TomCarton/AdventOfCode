@@ -13,7 +13,11 @@
 #include "source.h"
 #include "register.h"
 
-#define DEBUG 0
+#define DEBUG 1
+
+void clearScreen(void) {
+	printf("\033[H\033[J");
+}
 
 int main() {
     char *source = NULL;
@@ -29,9 +33,10 @@ int main() {
 	while (pc < instructionCount && inc) {
 
 #		if DEBUG
-			dumpRegisters(10);
+			clearScreen();
+			dumpRegisters(17);
 			
-			printf("instruction: %s", instruction[pc].token[0]);
+			printf("\ninstruction: %02d - %s", pc, instruction[pc].token[0]);
 			if (instruction[pc].token[1]) printf(" %s", instruction[pc].token[1]);
 			if (instruction[pc].token[2]) printf(" %s", instruction[pc].token[2]);
 			printf("\n");

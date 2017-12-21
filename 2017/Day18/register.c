@@ -32,22 +32,16 @@ void initRegisters() {
 }
 
 void dumpRegisters(unsigned int count) {
-	printf("\n");
+	for (unsigned int j = 0; j < count / 8; ++ j) {
+		unsigned int width = count - j * 8;
+		if (width > 8) width = 8;
 
-	for (unsigned int i = 0; i < count; ++i) {
-		printf(" %c  ", 'a' + i);
-	}
-	printf("\n");
+		for (unsigned int i = 8 * j; i < 8 * j + width; ++i) {
+			printf("| %c = %010lu ", 'a' + i, Register[i]);
+		}
 
-	for (unsigned int i = 0; i < count; ++i) {
-		printf("----");
+		printf("|\n");
 	}
-	printf("\n");
-
-	for (unsigned int i = 0; i < count; ++i) {
-		printf("%03lu ", Register[i]);
-	}
-	printf("\n\n");
 }
 
 int value(const char *string) {
