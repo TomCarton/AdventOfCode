@@ -19,9 +19,10 @@ unsigned int readInput(const char *filename, char **data) {
 		fseek(file, 0, SEEK_SET);
 
 		if (bufferSize) {
-			buffer = malloc(bufferSize);
+			buffer = malloc(bufferSize + 1);
 			if (buffer) {
 				read = fread(buffer, 1, bufferSize, file);
+				buffer[bufferSize] = 0;
 			}
 		}
 
