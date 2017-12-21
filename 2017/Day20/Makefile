@@ -2,7 +2,7 @@
 
 TARGET := day20
 
-C_FILES := $(wildcard *.c) $(wildcard ../common/*.c)
+C_FILES := $(wildcard *.c) $(wildcard ../../Common/*.c)
 
 CC=clang
 CC_FLAGS=-Wall -Werror -O3 -g
