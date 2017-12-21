@@ -1,4 +1,5 @@
 // Day 18
+// instruction.c
 //
 // written by Thomas CARTON
 //
@@ -12,7 +13,7 @@
 
 #include "register.h"
 
-#include "source.h"
+#include "instruction.h"
 
 static const unsigned int kLineMaxLength = 32;
 
