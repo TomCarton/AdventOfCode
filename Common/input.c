@@ -5,6 +5,13 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
+const unsigned int kLineMaxLength = 128;
+
+#define isBlank(c) (((c) == ' ') || ((c) == '\t'))
+#define isEndLine(c) (((c) == '\n') || ((c) == '\0'))
 
 unsigned int readInput(const char *filename, char **data) {
 	unsigned int read = 0;
@@ -32,4 +39,31 @@ unsigned int readInput(const char *filename, char **data) {
 	*data = buffer;
 
 	return read;
+}
+
+bool getLine(char **str, char *line) {
+	char *s = (char *)*str, c;
+	
+	while ((c = *s++) && isBlank(c));
+	char *start = s - 1;
+
+	while ((c = *s++) && !isEndLine(c));
+	char *end = s;
+
+	*str = s;
+
+	unsigned int size = end - start - 1;
+	if (size <= 1) {
+		return false;
+	}
+	if (size > kLineMaxLength) {
+		size = kLineMaxLength;
+	}
+
+	if (line) {
+		strncpy(line, start, size);
+		line[size] = '\0';
+	}
+
+	return true;
 }
