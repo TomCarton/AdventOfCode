@@ -12,7 +12,7 @@ all: $(C_FILES)
 
 .PHONY: clean
 clean:
-	rm $(TARGET)
+	rm -rf $(TARGET)*
 
 .PHONY: info
 info:

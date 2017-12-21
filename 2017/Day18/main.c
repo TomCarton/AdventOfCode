@@ -10,8 +10,8 @@
 
 #include "../common/input.h"
 
-#include "source.h"
 #include "register.h"
+#include "instruction.h"
 
 #define DEBUG 1
 
@@ -20,14 +20,15 @@ void clearScreen(void) {
 }
 
 int main() {
+	initRegisters();
+
     char *source = NULL;
 	readInput("input.txt", &source);
 
 	unsigned int instructionCount = getInstructions(source, NULL);
 	Instruction *instruction = malloc(instructionCount * sizeof(Instruction));
 	getInstructions(source, instruction);
-
-	initRegisters();
+	free(source);
 
 	int pc = 0, inc = 1;
 	while (pc < instructionCount && inc) {
@@ -49,8 +50,6 @@ int main() {
 	}
 
 	free(instruction);
-
-	free(source);
 
 	return 0;
 }
