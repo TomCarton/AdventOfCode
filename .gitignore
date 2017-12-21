@@ -1,0 +1,20 @@
+# Object files
+*.o
+*.obj
+*.elf
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects
+*.dylib
+
+# Executables
+*.out
+
+# Debug files
+*.dSYM/
+
+# Temporary folders
+_*
