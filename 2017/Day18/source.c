@@ -95,7 +95,7 @@ int runInstruction(Instruction *instruction) {
 	// rcv
 	} else if (strcmp(instruction->token[0], "rcv") == 0) {
 		if (value(instruction->token[1]) != 0) {
-			printf("Recover frequency of %d\n", frequency);
+			printf("\nRecover frequency of %d\n\n", frequency);
 			return 0;
 		}
 	// jgz
