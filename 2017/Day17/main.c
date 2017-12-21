@@ -7,7 +7,8 @@
 #include <stdio.h>
 #include <string.h>
 
-static const unsigned int kSpinAmount = 2017 + 1;
+// static const unsigned int kSpinAmount = 2017 + 1;
+static const unsigned int kSpinAmount = 50000000 + 1;
 
 unsigned int Buffer[kSpinAmount + 1];
 
@@ -36,7 +37,7 @@ int main() {
 	BufferSize = 1;
 
 	for (unsigned int v = 1; v < kSpinAmount; ++v) {
-		if ((v & 0xF) == 0) printf("\rspin %d -> %0.2f", v, 100.f * v / kSpinAmount);
+		if ((v & 0xFF) == 0) printf("\rspin %d -> %0.2f", v, 100.f * v / kSpinAmount);
 		BufferPosition = ((BufferPosition + Input) % BufferSize++) + 1;
 		for (unsigned int i = BufferSize - 2; i >= BufferPosition; --i) {
 			Buffer[i + 1] = Buffer[i];
