@@ -3,7 +3,7 @@
 # # Advent of Code 2020
 # Day 01
 
-f = open('input_gh.txt', 'r')
+f = open('input.txt', 'r')
 lines = [int(line.strip()) for line in f]
 
 # Part One:
