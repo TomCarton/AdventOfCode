@@ -5,7 +5,6 @@
 #include <fstream>
 #include <string>
 
-// 4-14 d: lxdmddfddddddd
 int main(int argc, char *argv[])
 {
     unsigned int countP1 = 0, countP2 = 0;
@@ -20,14 +19,16 @@ int main(int argc, char *argv[])
         size_t delim1 = line.find('-');
         size_t delim2 = line.find(':');
 
+        char letter = line[delim2 - 1];
         unsigned int min = atoi(line.substr(0, delim1).c_str());
         unsigned int max = atoi(line.substr(delim1 + 1, delim2).c_str());
-        char letter = line[delim2 - 1];
-
         const char *password = line.c_str() + delim2 + 2;
-        for (unsigned int i = 0; i < strlen(password); ++i) ++chars[(password[i] | ' ') - 'a'];
+
+        for (unsigned int i = 0; i < strlen(password); ++i)
+            ++chars[(password[i] | ' ') - 'a'];
 
         unsigned int occurences = chars[letter - 'a'];
+
         if (occurences >= min && occurences <= max)
             ++countP1;
 
