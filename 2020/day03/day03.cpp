@@ -15,9 +15,7 @@ unsigned int performSlope(const char *field, unsigned int width, unsigned int he
 
     do
     {
-        if (field[y * (width + 1) + x] == '#')
-            ++treeCount;
-
+        treeCount += 1 - (field[y * (width + 1) + x] - 0x23) / 11;
         x = (x + dx) % width;
         y += dy;
     } while (y < height);
