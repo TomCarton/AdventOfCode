@@ -13,7 +13,8 @@ int main(int argc, char *argv[])
 
     unsigned char chars[26];
     std::string line;
-    while (std::getline(file, line)) {
+    while (std::getline(file, line))
+    {
         memset(chars, 0, sizeof(chars));
 
         size_t delim1 = line.find('-');
