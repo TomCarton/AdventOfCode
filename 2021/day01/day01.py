@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import itertools as itt
 
-# # Advent of Code 2021
+# Advent of Code 2021
 # Day 01
 
 file = open('input.txt')
@@ -21,12 +21,11 @@ print( "Part One: {:d}".format(count) )
 # How many sums are larger than the previous sum?
 
 count = 0
-priorWindow = 0
-for i in range(2, len(heights)):
+priorWindow = heights[0] + heights[1] + heights[2]
+for i in range(3, len(heights)):
     slidingWindow = heights[i - 2] + heights[i - 1] + heights[i]
-    if (i > 2):
-        if (slidingWindow > priorWindow):
-            count += 1
+    if slidingWindow > priorWindow:
+        count += 1
     priorWindow = slidingWindow
 
 print( "Part Two: {:d}".format(count) )
