@@ -18,3 +18,6 @@
 
 # Temporary folders
 _*
+
+# Mac files
+.DS_Store
