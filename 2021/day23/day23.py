@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys
+import time
 
 # # Advent of Code 2021
 # Day 23
@@ -87,10 +88,19 @@ def move(data, x, y, i, j):
                     for a in range(len(data[b]))),) for b in range(len(data))),)
     return (newData, ((y - 1) + abs(x - i) + (j - 1)) * typeCost[data[y][x]])
 
-def solve(data):
+def dump(data):
+    print((len(data) + 1) * "\033[A")
+    for l in data:
+        print("".join(l[:-1:]))
+    time.sleep(0.02)
+
+def solve(data, display = False):
     cached = cache.get(data)
     if cached is not None:
         return cached
+
+    if display:
+        dump(data)
 
     if all([is_room_full(data, k) for k in [3, 5, 7, 9]]):
         return 0
@@ -104,7 +114,7 @@ def solve(data):
                 if has_room_available(data, x, y) and is_path_empty(data, x, room):
                     d, c = move(data, x, y, room, move_in_pos(data, room))
 
-                    cost = solve(d)
+                    cost = solve(d, display)
 
                     if cost >= 0:
                         costs.append(c + cost)
@@ -114,7 +124,7 @@ def solve(data):
                         if is_path_empty(data, x, i):
                             d, c = move(data, x, y, i, 1)
 
-                            cost = solve(d)
+                            cost = solve(d, display)
 
                             if cost >= 0:
                                 costs.append(c + cost)
@@ -134,13 +144,18 @@ if __name__ == '__main__':
     file = open(filename)
     lines = (*((*line,) for line in file),)
 
+    print(5 * "\n")
+
     # Part One:
-    #
-    min_cost = solve(lines)
-    print("Part One:", min_cost)
+    # What is the least energy required to organize the amphipods?
+    dump(lines)
+    min_cost = solve(lines, False)
+    print("\nPart One:", min_cost, 8 * "\n")
 
     # Part Two:
-    #
-    extended = (*lines[:3], (*"  #D#C#B#A#",), (*"  #D#B#A#C#",), *lines[3:],)
-    min_cost = solve(extended)
-    print("Part Two:", min_cost)
+    # Using the initial configuration from the full diagram, what is the least energy required to organize the amphipods?
+    extended = (*lines[:3], (*"  #D#C#B#A# ",), (*"  #D#B#A#C# ",), *lines[3:],)
+    dump(extended)
+
+    min_cost = solve(extended, False)
+    print("\nPart Two:", min_cost, "\n")
