@@ -1,6 +1,7 @@
 # input files
-input.tst
-input.txt
+input*.*
+sample*.*
+test*.*
 
 # Object files
 *.o

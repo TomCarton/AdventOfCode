@@ -15,11 +15,11 @@ def main(filename):
 
     # Part One:
     # Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
-    print("Part One: ", elves[0])
+    print("Part One:", elves[0])
 
     # Part Two:
     # Find the top three Elves carrying the most Calories. How many Calories are those Elves carrying in total?
-    print("Part Two: ", sum(elves[0:3]))
+    print("Part Two:", sum(elves[0:3]))
 
 
 # Main
