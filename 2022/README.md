@@ -3,7 +3,7 @@
 | Day    | Stars         | Languages |
 | ------ | ------------- | --------- |
 | Day 1  | :star: :star: | Python, C |
-| Day 2  |               |           |
+| Day 2  | :star: :star: | Python    |
 | Day 3  |               |           |
 | Day 4  |               |           |
 | Day 5  |               |           |
