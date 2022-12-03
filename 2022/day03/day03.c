@@ -16,22 +16,17 @@ void delay(int ms)
     while (clock() < endTime);
 }
 
-void dumpCursors(const char *line, int c1, int c2)
+void dumpCursors(const char *line, unsigned int c1, unsigned int c2, unsigned int sum)
 {
     printf("\033[H\033[J");
 
-    printf("  ");
-    for (unsigned i = 0; i < c1; ++i)
-        printf(" ");
-    printf("v\n");
+    printf("  "); for (unsigned i = 0; i < c1; ++i) printf(" "); printf("v\n");
+    printf("  %s\n", line);
+    printf("  "); for (unsigned i = 0; i < c2; ++i) printf(" "); printf("^\n");
 
-    printf("  %s\n  ", line);
+    printf(" > %d\n\n", sum);
 
-    for (unsigned i = 0; i < c2; ++i)
-        printf(" ");
-    printf("^\n");
-
-    // delay(10);
+    delay(1);
 }
 
 int main(int argc, char *argv[])
@@ -57,11 +52,12 @@ int main(int argc, char *argv[])
     char buffer[kMaxBufferSize + 1];
     buffer[kMaxBufferSize] = '\0';
 
-    char *line, *p1, *p2, c1, c2;
+    char *line, *p1, *p2, c, e;
     while((line = fgets(buffer, kMaxBufferSize, file)) != NULL)
     {
         unsigned int len = (unsigned int)strlen(line) - 1;
         line[len] = line[len] == '\n' ?: '\0';
+
         unsigned int half = len >> 1;
 
         p1 = line;
@@ -69,52 +65,20 @@ int main(int argc, char *argv[])
 
         do
         {
-            dumpCursors(line, p1 - line, p2 - line);
+            dumpCursors(line, p1 - line, p2 - line, sum);
 
-            char vis = *p2;
-            if ((c1 = *p1) == *p2++)
-            {
-                sum += c1 - 38 - (~c1 & 32 ? 0 : 58);
-                break;
-            }
+            c = *p2++;
+            p1 += (e = 1 -!!*(p2 + 1));
+            p2 -= e * half;
+        }
+        while(*p1 != c && p1 - line < half);
 
-            char c = 1 - !!(*(p2 + 1));
-            p2 -= c * half;
-            p1 += c;
-       }
-        while (p1 - line < half);
-
-        // p1 = line;
-        // for (unsigned int i = 0; i < half; ++i)
-        // {
-        //     c1 = *p1++;
-
-        //     p2 = line + half;
-        //     for (unsigned int j = 0; j < half; ++j)
-        //     {
-        //         c2 = *p2++;
-
-        //         if (c1 == c2)
-        //             break;
-        //     }
-
-        //     if (c1 == c2)
-        //     {
-        //         sum += c1 - 38 - (~c1 & 32 ? 0 : 58);
-        //         break;
-        //     }
-        // }
+        sum += c - 38 - (~c & 32 ? 0 : 58);
     }
 
     printf("Part One: %d\n", sum);
 
     fclose(file);
-
-
-    // Part Two:
-    // Find the item type that corresponds to the badges of each three-Elf group. What is the sum of the priorities of those item types?
-
-    printf("Part Two: %d\n", 2758);
 
     return 0;
 }
