@@ -4,7 +4,7 @@
 | ------ | ------------- | --------- |
 | Day 1  | :star: :star: | Python, C |
 | Day 2  | :star: :star: | Python    |
-| Day 3  |               |           |
+| Day 3  | :star: :star: | Python    |
 | Day 4  |               |           |
 | Day 5  |               |           |
 | Day 6  |               |           |
