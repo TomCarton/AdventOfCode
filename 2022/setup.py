@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
 # make python file executable
 st = os.stat(filename)
-os.chmod('somefile', st.st_mode | stat.S_IEXEC)
+os.chmod(filename, st.st_mode | stat.S_IEXEC)
 
 ## - Input.txt file
 filename = f'{folder_name}/input.txt'
