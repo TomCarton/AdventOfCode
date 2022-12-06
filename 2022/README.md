@@ -7,7 +7,7 @@
 | Day 3  | :star: :star: | Python, C |
 | Day 4  | :star: :star: | Python    |
 | Day 5  | :star: :star: | Python    |
-| Day 6  |               |           |
+| Day 6  | :star: :star: | Python    |
 | Day 7  |               |           |
 | Day 8  |               |           |
 | Day 9  |               |           |
