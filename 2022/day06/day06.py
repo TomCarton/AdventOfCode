@@ -5,6 +5,11 @@ import os
 # Advent of Code 2022
 # Day 06
 
+def markerStart(s, n):
+    for k in range(len(s)):
+        if len(set(s[k:k + n])) == n:
+            return k + n
+
 def main(filename):
     file = open(filename)
     lines = file.readlines()
@@ -13,25 +18,14 @@ def main(filename):
     line = lines[0]
 
     # Part One:
-    # 
-    for k in range(0, len(line)):
-        c4 = line[k:k + 4]
-        cs4 = set(c4)
-        if len(c4) == len(cs4):
-            break
+    # How many characters need to be processed before the first start-of-packet marker is detected?
 
-    print("Part One: ", k + 4)
+    print("Part One: ", markerStart(lines[0], 4))
 
     # Part Two:
-    # 
+    # How many characters need to be processed before the first start-of-message marker is detected?
 
-    for k in range(0, len(line)):
-        c4 = line[k:k + 14]
-        cs4 = set(c4)
-        if len(c4) == len(cs4):
-            break
-
-    print("Part Two: ", k + 14)
+    print("Part Two: ", markerStart(lines[0], 14))
 
 
 # Main
