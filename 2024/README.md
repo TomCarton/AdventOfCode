@@ -2,4 +2,4 @@
 
 | Day   | Stars         | Languages   |
 | ----- | ------------- | ----------- |
-
+| Day 1 | :star: :star: | Python, C++ |
