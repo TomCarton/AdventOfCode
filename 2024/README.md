@@ -7,3 +7,4 @@
 | Day 03 | :star: :star: | Python      |
 | Day 04 | :star: :star: | Python      |
 | Day 05 | :star: :star: | Python      |
+| Day 06 | :star: :star: | Python      |
