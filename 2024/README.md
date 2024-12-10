@@ -8,3 +8,4 @@
 | Day 04 | :star: :star: | Python      |
 | Day 05 | :star: :star: | Python      |
 | Day 06 | :star: :star: | Python      |
+| Day 10 | :star: :star: | Python      |
