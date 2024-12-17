@@ -13,3 +13,9 @@
 | Day 09 | :star: :star: | Python      |
 | Day 10 | :star: :star: | Python      |
 | Day 11 | :star: :star: | Python      |
+| Day 12 | :star: :star: | Python      |
+| Day 13 | :star: :star: | Python      |
+| Day 14 | :star: :star: | Python      |
+| Day 15 | :star: :star: | Python      |
+| Day 16 | :star: :star: | Python      |
+| Day 17 | :star: :star: | Python      |
