@@ -21,3 +21,6 @@
 | Day 17 | :star: :star: | Python      |
 | Day 18 | :star: :star: | Python      |
 | Day 19 | :star: :star: | Python      |
+| Day 20 | :star: :star: | Python      |
+| Day 21 | :star: :star: | Python      |
+| Day 22 | :star: :star: | Python      |
