@@ -24,3 +24,4 @@
 | Day 20 | :star: :star: | Python      |
 | Day 21 | :star: :star: | Python      |
 | Day 22 | :star: :star: | Python      |
+| Day 23 | :star: :star: | Python      |
